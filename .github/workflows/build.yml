@@ -1,4 +1,4 @@
-name: Build NetHunter Kernel (Manual SSH)
+name: Build NetHunter Kernel (Manual SSH + Error Logger)
 
 on:
   workflow_dispatch:
@@ -20,8 +20,11 @@ jobs:
     - name: SSH into Server (Tmate)
       uses: mxschmitt/action-tmate@v3
 
-    - name: Upload Kernel Zip
+    - name: Upload Kernel Zip and Logs
+      if: always()
       uses: actions/upload-artifact@v4
       with:
-        name: NetHunter-Kernel-Fixed-OTG
-        path: '**/*.zip'
+        name: NetHunter-Kernel-Files-And-Logs
+        path: |
+          **/*.zip
+          **/build_error_log.txt
