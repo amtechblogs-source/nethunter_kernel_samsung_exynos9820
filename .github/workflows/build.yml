@@ -17,24 +17,25 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y bc bison build-essential ccache curl flex g++-multilib gcc-multilib git gnupg gperf imagemagick lib32readline-dev lib32z1-dev liblz4-tool libncurses-dev libssl-dev libxml2 libxml2-utils lzop rsync schedtool squashfs-tools xsltproc zip zlib1g-dev expect
 
-    - name: Run Kernel Builder (Auto-Bot)
+    - name: Run Kernel Builder (Smart Auto-Bot)
       run: |
         cd kali-nethunter-kernel-builder
         
-        # Advance mein jawab de rahe hain taake script sawal na pooche
-        cat << 'EOF' > local.config
-        KERNEL_DIR=..
-        DEFCONFIG=exynos9820_beyondx_defconfig
-        EOF
-        
         chmod +x build.sh
         
-        # Hacker Trick: Expect Bot jo khud 'T' aur 'Enter' dabayega
+        # Hacker Trick: Smart Expect Bot (2 sawalon ke jawab)
         cat << 'EOF' > autobuild.exp
         set timeout -1
         spawn bash build.sh
-        expect "K E R N E L   B U I L D E R"
+        
+        # Pehla sawal: Build type? (T = Test build)
+        expect "Enter selection"
         send "T\r"
+        
+        # Doosra sawal: Device config? (6 = beyondx / S10 5G)
+        expect "Please select the configuration"
+        send "6\r"
+        
         expect eof
         EOF
         
