@@ -17,24 +17,25 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y bc bison build-essential ccache curl flex g++-multilib gcc-multilib git gnupg gperf imagemagick lib32readline-dev lib32z1-dev liblz4-tool libncurses-dev libssl-dev libxml2 libxml2-utils lzop rsync schedtool squashfs-tools xsltproc zip zlib1g-dev expect
 
-    - name: Run Kernel Builder (Final Boss Mode)
+    - name: Run Kernel Builder (Ultimate Auto-Bot)
       run: |
-        # 1. Config file manually create kar di taake Q6 skip ho jaye
-        cp arch/arm64/configs/exynos9820_beyondx_defconfig arch/arm64/configs/nethunter_defconfig
-        
         cd kali-nethunter-kernel-builder
         chmod +x build.sh
         
-        # 2. Smart Bot jo sirf Build aur Exit karega
+        # Super Bot: Jo 3 sawalon ke jawab dega
         cat << 'EOF' > autobuild.exp
         set timeout -1
         spawn bash build.sh
         
-        # Start: Main menu par 'T' dabao
+        # Pehla Sawal: Build type? (T = Test build)
         expect "Enter selection"
         send "T\r"
         
-        # 40 Mins Later: Jab wapas Main menu aaye toh 'E' daba kar Exit karo
+        # Doosra Sawal: Device config? (6 = beyondx)
+        expect "Please select the configuration"
+        send "6\r"
+        
+        # Teesra Sawal (40 minute baad): Wapas menu aane par Exit (E)
         expect "Enter selection"
         send "E\r"
         
